@@ -1,20 +1,13 @@
 "use client";
 
 import LiveCursors from "./cursor/LiveCursors"
-import { useOthers, useUpdateMyPresence } from "@/liveblocks.config"
+import { useMyPresence, useOthers } from "@/liveblocks.config"
 import { PointerEvent } from "react";
 
 const Live = () => {
   const others = useOthers()
-  const updateMyPresence = useUpdateMyPresence();
+  const [{ cursor }, updateMyPresence] = useMyPresence() as any;
 
-  const onPointerEnter = (event: PointerEvent) => {
-    const x = event.clientX - event.currentTarget.getBoundingClientRect().x;
-    const y = event.clientY - event.currentTarget.getBoundingClientRect().y;
-    updateMyPresence({
-      cursor: { x, y }
-    })
-  }
   const onPointerMove = (event: PointerEvent) => {
     const x = event.clientX - event.currentTarget.getBoundingClientRect().x;
     const y = event.clientY - event.currentTarget.getBoundingClientRect().y;
